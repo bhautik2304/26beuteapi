@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\store;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
-class StoreController extends Controller
+class Users extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +15,8 @@ class StoreController extends Controller
      */
     public function index()
     {
-        //
-        return response(["store"=>store::all()],200);
+        //user show
+        return response(["user"=>User::all(),"msg"=>"hear"],200);
     }
 
     /**
@@ -34,18 +35,19 @@ class StoreController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $req)
     {
-        //
+        //user create
+        return Hash::make($req->pass);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\store  $store
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function show(store $store)
+    public function show(User $user)
     {
         //
     }
@@ -53,10 +55,10 @@ class StoreController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\store  $store
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function edit(store $store)
+    public function edit(User $user)
     {
         //
     }
@@ -65,10 +67,10 @@ class StoreController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\store  $store
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, store $store)
+    public function update(Request $request, User $user)
     {
         //
     }
@@ -76,11 +78,24 @@ class StoreController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\store  $store
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy(store $store)
+    public function destroy(User $user)
     {
         //
+    }
+
+    public function login(Request $req)
+    {
+        $user = User::where('email', $req->email)->first();
+
+        if (! $user || ! Hash::check($req->password, $user->password)) {
+            return response([
+                'msg' => ['The provided credentials are incorrect.'],
+            ],501);
+        }
+
+        return response(["token"=>$user->createToken($req->email)->plainTextToken,"user"=> $user,"status"=>true,"store_id"=>$user->store_id ],200);
     }
 }
