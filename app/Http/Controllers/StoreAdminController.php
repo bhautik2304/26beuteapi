@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
+use App\Models\storeAdmin;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 
-class Users extends Controller
+class StoreAdminController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +14,7 @@ class Users extends Controller
      */
     public function index()
     {
-        //user show
-        return response(["user"=>User::all(),"msg"=>"hear"],200);
+        //
     }
 
     /**
@@ -35,19 +33,18 @@ class Users extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $req)
+    public function store(Request $request)
     {
-        //user create
-        return Hash::make($req->pass);
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\User  $user
+     * @param  \App\Models\storeAdmin  $storeAdmin
      * @return \Illuminate\Http\Response
      */
-    public function show(User $user)
+    public function show(storeAdmin $storeAdmin)
     {
         //
     }
@@ -55,10 +52,10 @@ class Users extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\User  $user
+     * @param  \App\Models\storeAdmin  $storeAdmin
      * @return \Illuminate\Http\Response
      */
-    public function edit(User $user)
+    public function edit(storeAdmin $storeAdmin)
     {
         //
     }
@@ -67,10 +64,10 @@ class Users extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\User  $user
+     * @param  \App\Models\storeAdmin  $storeAdmin
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(Request $request, storeAdmin $storeAdmin)
     {
         //
     }
@@ -78,10 +75,10 @@ class Users extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\User  $user
+     * @param  \App\Models\storeAdmin  $storeAdmin
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user)
+    public function destroy(storeAdmin $storeAdmin)
     {
         //
     }

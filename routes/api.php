@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\{StoreController,Users};
+use App\Http\Controllers\{StoreController,Users,ProductController};
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -22,6 +22,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::resource('store', StoreController::class);
 Route::resource('user', Users::class);
+Route::resource('getallproduct', ProductController::class);
 Route::post('userlogin', [Users::class,'login']);
 Route::post('sampllogin',function(Request $req)
 {

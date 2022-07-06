@@ -15,7 +15,7 @@ class ProductController extends Controller
     public function index()
     {
         //
-
+        return response(["product"=>product::all()],200);
     }
 
     /**
@@ -45,9 +45,10 @@ class ProductController extends Controller
      * @param  \App\Models\product  $product
      * @return \Illuminate\Http\Response
      */
-    public function show(product $product)
+    public function show(product $product,$id)
     {
         //
+        return response(["product"=>$product->where("slug",$id)->get()],200);
     }
 
     /**
