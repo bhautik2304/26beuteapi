@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 
-class UserIsadmin
+class authcheck
 {
     /**
      * Handle an incoming request.
@@ -16,12 +16,9 @@ class UserIsadmin
      */
     public function handle(Request $request, Closure $next)
     {
-
-        if (!session()->get('user')['masteradmin']) {
-            # code...
-            return redirect('store/home');
+        if(!$request->session()->get('login')){
+            return $next($request);
         }
-
-        return $next($request);
+        return redirect()->back();
     }
 }

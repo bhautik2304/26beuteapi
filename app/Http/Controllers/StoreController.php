@@ -15,7 +15,8 @@ class StoreController extends Controller
     public function index()
     {
         //
-        return response(["store"=>store::all()],200);
+        $store=store::all();
+        return view("admin.store.storelist",["store"=>store::all()]);
     }
 
     /**
@@ -68,9 +69,21 @@ class StoreController extends Controller
      * @param  \App\Models\store  $store
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, store $store)
+    public function update(Request $req, store $store,$id)
     {
         //
+       return $store->find($id)->update([
+        "name"=>$req->name,
+        "store_code"=>$req->store_code,
+        "contact_no"=>$req->contact_no,
+        "address"=>$req->address,
+        "city"=>$req->city,
+        "state"=>$req->state,
+        "pincode"=>$req->pincode,
+        "status"=>$req->status,
+       ]);
+
+       return redirect()->route('storelist');
     }
 
     /**
@@ -79,8 +92,10 @@ class StoreController extends Controller
      * @param  \App\Models\store  $store
      * @return \Illuminate\Http\Response
      */
-    public function destroy(store $store)
+    public function destroy(store $store,$id)
     {
         //
+        $store->delete($id);
+        return redirect()->back();
     }
 }
